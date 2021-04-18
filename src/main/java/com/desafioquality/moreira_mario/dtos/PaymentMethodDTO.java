@@ -33,7 +33,7 @@ public class PaymentMethodDTO {
             Integer intDues = Integer.parseInt(dues);
             switch (this.type) {
                 case "CREDIT":
-                    if (intDues < 0 && intDues <= 6)
+                    if (intDues < 1 || intDues >= 6)
                         throw new ApiException(HttpStatus.BAD_REQUEST, "Error: Se ha ingresado una cantidad de cuotas invalida.");
                     break;
                 case "DEBIT":
