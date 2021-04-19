@@ -1,7 +1,7 @@
 package com.desafioquality.moreira_mario.dtos;
 
 import com.desafioquality.moreira_mario.exceptions.ApiException;
-import com.desafioquality.moreira_mario.utils.Util;
+import com.desafioquality.moreira_mario.utils.UtilValidate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,11 +25,11 @@ public class FlightReservationOutDTO {
 
 
     public void setDateFrom(String dateFrom) throws ApiException {
-        this.dateFrom = Util.dateForamt(dateFrom);
+        this.dateFrom = UtilValidate.dateForamt(dateFrom);
     }
 
     public void setDateTo(String dateTo) throws ApiException {
-        this.dateTo = Util.dateForamt(dateTo);
+        this.dateTo = UtilValidate.dateForamt(dateTo);
     }
 
 

@@ -1,12 +1,11 @@
 package com.desafioquality.moreira_mario.dtos;
 
 import com.desafioquality.moreira_mario.exceptions.ApiException;
-import com.desafioquality.moreira_mario.utils.Util;
+import com.desafioquality.moreira_mario.utils.UtilValidate;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.http.HttpStatus;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,11 +27,11 @@ public class BookingOutDTO {
 
 
     public void setDateFrom(String dateFrom) throws ApiException {
-        this.dateFrom = Util.dateForamt(dateFrom);
+        this.dateFrom = UtilValidate.dateForamt(dateFrom);
     }
 
     public void setDateTo(String dateTo) throws ApiException {
-        this.dateTo = Util.dateForamt(dateTo);
+        this.dateTo = UtilValidate.dateForamt(dateTo);
     }
 
 

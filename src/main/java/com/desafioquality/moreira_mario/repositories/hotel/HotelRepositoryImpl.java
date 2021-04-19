@@ -318,9 +318,9 @@ public class HotelRepositoryImpl implements HotelRepository {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         sdf.setLenient(false);
         try {
-            hotel.setAvailabilityFrom(sdf.parse(sdf.format(line.get(5).getDateCellValue())));
-            hotel.setAvailabilityTo(sdf.parse(sdf.format(line.get(6).getDateCellValue())));
-        } catch (ParseException | IllegalStateException e) {
+            hotel.setAvailabilityFrom(sdf.format(line.get(5).getDateCellValue()));
+            hotel.setAvailabilityTo(sdf.format(line.get(6).getDateCellValue()));
+        } catch (IllegalStateException e) {
             throw new ApiException(HttpStatus.CONFLICT, "Error: Formato de Fecha en Hotel: " + hotel.getName() + " no valido.");
         }
         return hotel;

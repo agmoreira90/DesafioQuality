@@ -1,8 +1,7 @@
 package com.desafioquality.moreira_mario.dtos;
 
 import com.desafioquality.moreira_mario.exceptions.ApiException;
-import com.desafioquality.moreira_mario.utils.Util;
-import lombok.AllArgsConstructor;
+import com.desafioquality.moreira_mario.utils.UtilValidate;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +12,6 @@ public class BookingRequestDTO {
     private BookingInDTO booking;
 
     public void setUserName(String userName) throws ApiException {
-        this.userName = Util.emailFormat(userName);
+        this.userName = UtilValidate.emailFormat(userName);
     }
 }

@@ -1,7 +1,7 @@
 package com.desafioquality.moreira_mario.dtos;
 
 import com.desafioquality.moreira_mario.exceptions.ApiException;
-import com.desafioquality.moreira_mario.utils.Util;
+import com.desafioquality.moreira_mario.utils.UtilValidate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,11 +20,11 @@ public class PersonDTO {
     private String mail;
 
     public void setBirthDate(String birthDate) throws ApiException {
-        this.birthDate = Util.dateForamt(birthDate);
+        this.birthDate = UtilValidate.dateForamt(birthDate);
     }
 
     public void setMail(String mail) throws ApiException {
-        this.mail = Util.emailFormat(mail);
+        this.mail = UtilValidate.emailFormat(mail);
     }
 
     public String getBirthDate() {

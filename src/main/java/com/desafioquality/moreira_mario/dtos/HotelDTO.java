@@ -1,5 +1,7 @@
 package com.desafioquality.moreira_mario.dtos;
 
+import com.desafioquality.moreira_mario.exceptions.ApiException;
+import com.desafioquality.moreira_mario.utils.UtilValidate;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,5 +39,13 @@ public class HotelDTO {
     @JsonIgnore
     public Date getAvailabilityToAsDate() {
         return this.availabilityTo;
+    }
+
+    public void setAvailabilityFrom(String availabilityFrom) throws ApiException {
+        this.availabilityFrom = UtilValidate.dateForamt(availabilityFrom);
+    }
+
+    public void setAvailabilityTo(String availabilityTo) throws ApiException {
+        this.availabilityTo = UtilValidate.dateForamt(availabilityTo);
     }
 }
