@@ -38,16 +38,16 @@ public class ReservationServiceImpl implements ReservationService {
      * Set the Response ReservationDTO
      *
      * @param response    ReservationDTO
-     * @param reservation id the reservation entered by the user
+     * @param reservation reservation entered by the user
      * @return a ReservationDTO
      * This method set the Reservation to the ReservationResponseDTO from ReservationInDTO
      */
     private FlightReservationResponseDTO loadReservation(FlightReservationResponseDTO response, FlightReservationInDTO reservation) throws ApiException {
-        try{
+        try {
             FlightReservationOutDTO reservationOut = new FlightReservationOutDTO();
             reservationOut.setSeatType(reservation.getSeatType());
             reservationOut.setSeats(reservation.getSeats());
-            reservationOut.setFlightNumbre(reservation.getFlightNumber());
+            reservationOut.setFlightNumber(reservation.getFlightNumber());
             reservationOut.setDestination(reservation.getDestination());
             reservationOut.setOrigin(reservation.getOrigin());
             reservationOut.setDateTo(reservation.getDateTo());
@@ -55,7 +55,7 @@ public class ReservationServiceImpl implements ReservationService {
             reservationOut.setPeople(reservation.getPeople());
             response.setReservation(reservationOut);
             return response;
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             throw new ApiException(HttpStatus.BAD_REQUEST, "Error: Formato de JSON invalido.");
         }
 
@@ -138,11 +138,38 @@ public class ReservationServiceImpl implements ReservationService {
         filter.put("flightOrigin", origin);
         filter.put("flightDestination", destination);
         List<FlightDTO> flights = this.flightService.getFlights(filter);
-        if (flights.size() == 1) {
-            FlightDTO flight = flights.get(0);
+        if (flights.size() >= 1) {
+            FlightDTO flight = validateFlightNumber(dateFrom, dateTo, destination, origin, flightNumbre);
             return flight;
         } else {
             throw new ApiException(HttpStatus.BAD_REQUEST, "Error: El destino elegido no existe.");
+        }
+    }
+
+    /**
+     * Executes Flight Number filtering
+     *
+     * @param dateFrom     reservation start date
+     * @param dateTo       reservation end date
+     * @param destination  reservation destination
+     * @param origin       reservation origin
+     * @param flightNumbre reservation flight number
+     * @return a Flight dto
+     * This method validate the dates, origin, destination and flight number loaded by the user at the ReservationRequest
+     */
+    private FlightDTO validateFlightNumber(String dateFrom, String dateTo, String destination, String origin, String flightNumbre) throws ApiException {
+        Map<String, String> filter = new HashMap<>();
+        filter.put("flightDeparture", dateFrom);
+        filter.put("flightArrival", dateTo);
+        filter.put("flightOrigin", origin);
+        filter.put("flightDestination", destination);
+        filter.put("flightNumber", flightNumbre);
+        List<FlightDTO> flights = this.flightService.getFlights(filter);
+        if (flights.size() == 1) {
+            FlightDTO flight = this.flightService.getFlights(filter).get(0);
+            return flight;
+        } else {
+            throw new ApiException(HttpStatus.BAD_REQUEST, "Error: El Vuelo elegido no existe.");
         }
     }
 

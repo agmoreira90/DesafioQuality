@@ -32,13 +32,13 @@ public class BookingController {
         return bookingService.booking(bookingRequest);
     }
     /**
-     * Caths JSON Error
+     * Catch JSON Error
      *
      * @param e is a HttpMessageNotReadableException
      * @return a ResponseEntity<ApiError> with the error
      */
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ApiError> productJSONFormat(HttpMessageNotReadableException e) {
+    public ResponseEntity<ApiError> bookingJSONFormat(HttpMessageNotReadableException e) {
         Integer statusCode = HttpStatus.BAD_REQUEST.value();
         String message = "Error: Formato de JSON invalido.";
         String status = HttpStatus.BAD_REQUEST.name();

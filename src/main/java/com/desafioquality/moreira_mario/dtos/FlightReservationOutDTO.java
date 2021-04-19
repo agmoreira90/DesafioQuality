@@ -18,7 +18,7 @@ public class FlightReservationOutDTO {
     private Date dateTo;
     private String origin;
     private String destination;
-    private String flightNumbre;
+    private String flightNumber;
     private Integer seats;
     private String seatType;
     private List<PersonDTO> people;

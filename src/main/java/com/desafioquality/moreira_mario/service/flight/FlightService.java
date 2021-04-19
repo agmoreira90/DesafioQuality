@@ -10,5 +10,4 @@ public interface FlightService {
 
 
     List<FlightDTO> getFlights(Map<String,String> params) throws ApiException;
-    void updateFlight(FlightDTO flight) throws  ApiException;
 }

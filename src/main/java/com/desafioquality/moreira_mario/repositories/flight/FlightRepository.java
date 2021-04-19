@@ -10,6 +10,4 @@ public interface FlightRepository {
 
     Map<String, FlightDTO> selectFlight(Map<String, String> params) throws ApiException;
 
-    void updateFlight(FlightDTO flight) throws ApiException;
-
 }

@@ -27,13 +27,4 @@ public class FlightServiceImpl implements FlightService{
         List<FlightDTO> flights = new ArrayList<FlightDTO>(this.flightRepository.selectFlight(params).values());
         return flights;
     }
-    /**
-     * Executes update of the dto
-     *
-     * @param flight hotel dto
-     */
-    @Override
-    public void updateFlight(FlightDTO flight) throws ApiException {
-
-    }
 }

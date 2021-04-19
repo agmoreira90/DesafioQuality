@@ -95,7 +95,7 @@ class HotelRepositoryImplTest {
         Map<String, String> filters = new HashMap<>();
         filters.put("city", "Puerto Iguazú");
         filters.put("availabilityFrom", "10/02/2021");
-        filters.put("availabilityTo", "19/03/2021");
+        filters.put("availabilityTo", "20/03/2021");
         filters.put("roomType", "Doble");
         Map<String, HotelDTO> newHotels = hotelRepository.selectHotel(filters);
         Assertions.assertEquals(hotels, newHotels);

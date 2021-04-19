@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
+//@AllArgsConstructor
 @NoArgsConstructor
 public class BookingInDTO {
     private Date dateFrom;
@@ -59,7 +59,7 @@ public class BookingInDTO {
                     this.executeRoomTypeException();
                 break;
             case "MULTIPLE":
-                if (this.peopleAmount <= 4 && this.peopleAmount >= 10)
+                if (this.peopleAmount < 4 || this.peopleAmount > 10)
                     this.executeRoomTypeException();
                 break;
             default:

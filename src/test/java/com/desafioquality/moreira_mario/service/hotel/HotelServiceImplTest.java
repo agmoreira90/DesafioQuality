@@ -146,7 +146,7 @@ class HotelServiceImplTest {
 
 
     @Test
-    void selectHotelCityException() throws ApiException {
+    void selectHotelException() throws ApiException {
         Map<String, String> filters = new HashMap<>();
         filters.put("city", "Ciudad que no Existe");
         Mockito.when(hotelRepository.selectHotel(filters)).thenThrow(ApiException.class);

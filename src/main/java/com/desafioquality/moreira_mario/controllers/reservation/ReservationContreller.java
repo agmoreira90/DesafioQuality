@@ -21,13 +21,6 @@ public class ReservationContreller {
     public ReservationContreller(ReservationService reservationService) {
         this.reservationService = reservationService;
     }
-    @GetMapping("/reservations")
-    public FlightReservationRequestDTO getProducts(@RequestParam Map<String, String> params) throws ApiException {
-        FlightReservationRequestDTO request =  new FlightReservationRequestDTO();
-        FlightReservationInDTO reservation = new FlightReservationInDTO();
-        request.setReservation(reservation);
-        return request;
-    }
     /**
      * Post endpoint /booking
      *
@@ -35,7 +28,7 @@ public class ReservationContreller {
      * @return a ResponseBooking dto if the booking process ends correct
      */
     @PostMapping("/flight-reservation")
-    public FlightReservationResponseDTO booking(@RequestBody FlightReservationRequestDTO reservationRequest) throws ApiException {
+    public FlightReservationResponseDTO reservate(@RequestBody FlightReservationRequestDTO reservationRequest) throws ApiException {
         return reservationService.reservate(reservationRequest);
     }
 
@@ -46,7 +39,7 @@ public class ReservationContreller {
      * @return a ResponseEntity<ApiError> with the error
      */
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ApiError> productJSONFormat(HttpMessageNotReadableException e) {
+    public ResponseEntity<ApiError> reservationJSONFormat(HttpMessageNotReadableException e) {
         Integer statusCode = HttpStatus.BAD_REQUEST.value();
         String message = "Error: Formato de JSON invalido.";
         String status = HttpStatus.BAD_REQUEST.name();

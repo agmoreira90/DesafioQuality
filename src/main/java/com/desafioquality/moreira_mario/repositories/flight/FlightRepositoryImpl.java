@@ -1,19 +1,15 @@
 package com.desafioquality.moreira_mario.repositories.flight;
 
 import com.desafioquality.moreira_mario.dtos.FlightDTO;
-import com.desafioquality.moreira_mario.dtos.HotelDTO;
 import com.desafioquality.moreira_mario.exceptions.ApiException;
 import com.desafioquality.moreira_mario.utils.XLSXUtil;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Month;
-import java.time.format.TextStyle;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -41,7 +37,7 @@ public class FlightRepositoryImpl implements FlightRepository {
         for (Map.Entry entry : data.entrySet()) {
             List<Cell> line = (ArrayList<Cell>) entry.getValue();
             FlightDTO flight = new FlightDTO();
-            flight.setFlightNum(line.get(0).toString());
+            flight.setFlightNumber(line.get(0).toString());
             flight.setFlightOrigin(line.get(1).toString());
             flight.setFlightDestination(line.get(2).toString());
             flight.setSeatType(line.get(3).toString());
@@ -53,38 +49,6 @@ public class FlightRepositoryImpl implements FlightRepository {
         }
         flights = applyFilters(params,flights);
         return flights;
-    }
-
-    /**
-     * Update a Fligh dto at the xlsx
-     *
-     * @param flight flight dto
-     * execute flight update at the xlsx
-     */
-    @Override
-    public void updateFlight(FlightDTO flight) throws ApiException {
-//
-//        Map<String, String> filters = new HashMap<>();
-//        filters.put("0", hotel.getHotelCode());
-//        filters.put("5", getStrDateFilter(hotel.getAvailabilityFromAsDate()));
-//        filters.put("6", getStrDateFilter(hotel.getAvailabilityToAsDate()));
-//        filters.put("2", hotel.getCity());
-//
-//        Row hotelRow = XLSXUtil.getRow(filters, this.propertyPath, this.XLSXSheet);
-//        hotelRow.getCell(0).setCellValue(hotel.getHotelCode());
-//        hotelRow.getCell(2).setCellValue(hotel.getName());
-//        hotelRow.getCell(2).setCellValue(hotel.getCity());
-//        hotelRow.getCell(3).setCellValue(hotel.getRoomType());
-//        hotelRow.getCell(4).setCellValue("$" + hotel.getPrice().toString().replace(".0", ""));
-//        hotelRow.getCell(5).setCellValue(hotel.getAvailabilityFromAsDate());
-//        hotelRow.getCell(6).setCellValue(hotel.getAvailabilityToAsDate());
-//
-//        if (hotel.isReserved()) {
-//            hotelRow.getCell(7).setCellValue("NO");
-//        } else {
-//            hotelRow.getCell(7).setCellValue("SI");
-//        }
-//        XLSXUtil.updateXLSX(hotelRow, filters, this.propertyPath, this.XLSXSheet);
     }
 
     /**
@@ -132,7 +96,7 @@ public class FlightRepositoryImpl implements FlightRepository {
      */
     private Map<String, FlightDTO> filterFlightNum(Map<String, FlightDTO> flights, String filter) {
         flights = flights.entrySet().stream()
-                .filter(flight -> flight.getValue().getFlightNum().equals(filter))
+                .filter(flight -> flight.getValue().getFlightNumber().equals(filter))
                 .collect(Collectors.toMap(flight -> flight.getKey(), flight -> flight.getValue()));
         return flights;
     }
@@ -178,10 +142,13 @@ public class FlightRepositoryImpl implements FlightRepository {
      * @param flights all the flights
      * @return a filtered map with flight dto
      */
-    private Map<String, FlightDTO> filterSeatType(Map<String, FlightDTO> flights, String filter) {
+    private Map<String, FlightDTO> filterSeatType(Map<String, FlightDTO> flights, String filter) throws ApiException {
         flights = flights.entrySet().stream()
                 .filter(flight -> flight.getValue().getSeatType().equals(filter))
                 .collect(Collectors.toMap(flight -> flight.getKey(), flight -> flight.getValue()));
+        if (flights.size() == 0) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, "Error: El tipo de asiento elegido no esta disponible.");
+        }
         return flights;
     }
 
@@ -270,22 +237,6 @@ public class FlightRepositoryImpl implements FlightRepository {
         }
     }
 
-//    /**
-//     * Convert date to String
-//     *
-//     * @param date date value
-//     * @return a String with  specific date format to compare with the date values where in the xlsx
-//     */
-//    private String getStrDateFilter(Date date) {
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.setTime(date);
-//        Integer dia = calendar.get(Calendar.DAY_OF_MONTH);
-//        Month mes = Month.of(calendar.get(Calendar.MONTH) + 1);
-//        Integer ano = calendar.get(Calendar.YEAR);
-//        String strDate = dia + "-" + mes.getDisplayName(TextStyle.SHORT, new Locale("es", "ES")) + "-" + ano;
-//        return strDate;
-//    }
-
     /**
      * Set Date Values
      *
@@ -300,7 +251,7 @@ public class FlightRepositoryImpl implements FlightRepository {
             flight.setFlightDeparture(sdf.parse(sdf.format(line.get(5).getDateCellValue())));
             flight.setFlightArrival(sdf.parse(sdf.format(line.get(6).getDateCellValue())));
         } catch (ParseException | IllegalStateException e) {
-            throw new ApiException(HttpStatus.CONFLICT, "Error: Formato de Fecha en Vuelo: " + flight.getFlightNum() + " no valido.");
+            throw new ApiException(HttpStatus.CONFLICT, "Error: Formato de Fecha en Vuelo: " + flight.getFlightNumber() + " no valido.");
         }
         return flight;
     }

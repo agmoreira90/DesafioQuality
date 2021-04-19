@@ -38,7 +38,7 @@ public class FlightController {
      * @return a ResponseEntity<ApiError> with the error
      */
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ApiError> productJSONFormat(HttpMessageNotReadableException e) {
+    public ResponseEntity<ApiError> flightJSONFormat(HttpMessageNotReadableException e) {
         Integer statusCode = HttpStatus.BAD_REQUEST.value();
         String message = "Error: Formato de JSON invalido.";
         String status = HttpStatus.BAD_REQUEST.name();

@@ -1,11 +1,8 @@
 package com.desafioquality.moreira_mario.controllers.booking;
 
-import com.desafioquality.moreira_mario.controllers.hotel.HotelController;
 import com.desafioquality.moreira_mario.dtos.*;
 import com.desafioquality.moreira_mario.exceptions.ApiException;
 import com.desafioquality.moreira_mario.service.booking.BookingService;
-import com.desafioquality.moreira_mario.service.booking.BookingServiceImpl;
-import com.desafioquality.moreira_mario.service.hotel.HotelService;
 import com.desafioquality.moreira_mario.utils.UtilTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,10 +11,6 @@ import org.springframework.http.HttpStatus;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.atLeast;
@@ -44,8 +37,6 @@ class BookingControllerTest {
         BookingResponseDTO bookingResponse = this.bookingController.booking(bookingRequest);
         Mockito.verify(bookingService,atLeast(1)).booking(bookingRequest);
         assertEquals(miBookingResponse,bookingResponse);
-
-
     }
 
     @Test
