@@ -258,7 +258,7 @@ public class HotelRepositoryImpl implements HotelRepository {
      * @param filter the date from value
      * @return a filtered map with hotels dto
      */
-    private Map<String, HotelDTO> filterAvailabilityFrom(Map<String, HotelDTO> hotels, String filter) throws ApiException, ParseException {
+    private Map<String, HotelDTO> filterAvailabilityFrom(Map<String, HotelDTO> hotels, String filter) throws ParseException {
         Date date;
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         sdf.setLenient(false);

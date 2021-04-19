@@ -6,7 +6,6 @@ import com.desafioquality.moreira_mario.service.hotel.HotelService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,32 +22,37 @@ public class BookingServiceImpl implements BookingService {
     /**
      * Executes the Booking
      *
-     * @param bookingRequestDTO the request dto for the booking
+     * @param bookingRequest the request dto for the booking
      * @return a BookingResponseDTO after complete the booking
      * This method create a BookingResponseDTO to be return with a StatusCodeDTO
      */
     @Override
-    public BookingResponseDTO booking(BookingRequestDTO bookingRequestDTO) throws ApiException {
-        BookingResponseDTO response = new BookingResponseDTO();
-        response.setUserName(bookingRequestDTO.getUserName());
-        response = this.loadBooking(response, bookingRequestDTO.getBooking());
-        String cardType = bookingRequestDTO.getBooking().getPaymentMethod().getType();
-        Integer dues = bookingRequestDTO.getBooking().getPaymentMethod().getDues();
-        HotelDTO hotel = this.validateHotel(bookingRequestDTO);
-        response = calculateTotal(response, cardType, dues, hotel);
-        StatusCodeDTO statusCode = new StatusCodeDTO();
-        statusCode.setCode(HttpStatus.OK.value());
-        statusCode.setMessage("El proceso termino satisfactoriamente");
-        response.setStatusCode(statusCode);
-        return response;
+    public BookingResponseDTO booking(BookingRequestDTO bookingRequest) throws ApiException {
+        try {
+            BookingResponseDTO response = new BookingResponseDTO();
+            response.setUserName(bookingRequest.getUserName());
+            response = this.loadBooking(response, bookingRequest.getBooking());
+            String cardType = bookingRequest.getBooking().getPaymentMethod().getType();
+            Integer dues = bookingRequest.getBooking().getPaymentMethod().getDues();
+            HotelDTO hotel = this.validateHotel(bookingRequest);
+            response = calculateTotal(response, cardType, dues, hotel);
+            StatusCodeDTO statusCode = new StatusCodeDTO();
+            statusCode.setCode(HttpStatus.OK.value());
+            statusCode.setMessage("El proceso termino satisfactoriamente");
+            response.setStatusCode(statusCode);
+            return response;
+        } catch (NullPointerException e) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, "Error: Formato de JSON invalido.");
+        }
     }
+
     /**
      * Executes Dates filtering
      *
-     * @param dateFrom reservation start date
-     * @param dateTo reservation end date
+     * @param dateFrom    reservation start date
+     * @param dateTo      reservation end date
      * @param destination reservation destination
-     * @param hotelCode hotel code
+     * @param hotelCode   hotel code
      * @return a Hotel dto
      * This method validate the dates loaded by the user at the BookingRequest
      */
@@ -61,13 +65,14 @@ public class BookingServiceImpl implements BookingService {
         HotelDTO hotel = this.validateCity(dateFrom, dateTo, destination, hotelCode);
         return hotel;
     }
+
     /**
      * Executes City filtering
      *
-     * @param dateFrom reservation start date
-     * @param dateTo reservation end date
+     * @param dateFrom    reservation start date
+     * @param dateTo      reservation end date
      * @param destination reservation destination
-     * @param hotelCode hotel code
+     * @param hotelCode   hotel code
      * @return a Hotel dto
      * This method validate the dates and city loaded by the user at the BookingRequest
      */
@@ -80,13 +85,14 @@ public class BookingServiceImpl implements BookingService {
         HotelDTO hotel = this.validateHotelCode(dateFrom, dateTo, destination, hotelCode);
         return hotel;
     }
+
     /**
      * Executes HotelCode filtering
      *
-     * @param dateFrom reservation start date
-     * @param dateTo reservation end date
+     * @param dateFrom    reservation start date
+     * @param dateTo      reservation end date
      * @param destination reservation destination
-     * @param hotelCode hotel code
+     * @param hotelCode   hotel code
      * @return a Hotel dto
      * This method validate the dates, the city and hotel code loaded by the user at the BookingRequest
      */
@@ -104,13 +110,14 @@ public class BookingServiceImpl implements BookingService {
             throw new ApiException(HttpStatus.BAD_REQUEST, "Error: El destino elegido no existe.");
         }
     }
+
     /**
      * Calculate the Interest by Card Type
      *
      * @param response ResponseBookingDTO
      * @param cardType the type of card entered by the user
-     * @param dues quantity of dues entered
-     * @param hotel hotel dto loaded with the filters entered by the user
+     * @param dues     quantity of dues entered
+     * @param hotel    hotel dto loaded with the filters entered by the user
      * @return a ResponseBookingDTO
      * This method validate the card type entered and set the respective interest depending by the dues
      */
@@ -134,11 +141,12 @@ public class BookingServiceImpl implements BookingService {
         }
         return response;
     }
+
     /**
      * Set the Price values for the Reservation
      *
      * @param response ResponseBookingDTO
-     * @param hotel hotel dto loaded with the filters entered by the user
+     * @param hotel    hotel dto loaded with the filters entered by the user
      * @param interest the interest value
      * @return a ResponseBookingDTO
      * This method set the amount, the interest and total of the reservation
@@ -150,11 +158,12 @@ public class BookingServiceImpl implements BookingService {
         response.setTotal(total);
         return response;
     }
+
     /**
      * Set the Response BookingDto
      *
      * @param response ResponseBookingDTO
-     * @param booking id the booking entered by the user to make the reservation
+     * @param booking  id the booking entered by the user to make the reservation
      * @return a ResponseBookingDTO
      * This method set the Booking to the BookingResponseDTO from BookingInDTO
      */
@@ -170,6 +179,7 @@ public class BookingServiceImpl implements BookingService {
         response.setBooking(bookingOut);
         return response;
     }
+
     /**
      * Validate Hotel
      *
@@ -179,7 +189,7 @@ public class BookingServiceImpl implements BookingService {
      */
     private HotelDTO validateHotel(BookingRequestDTO bookingRequestDTO) throws ApiException {
         String dateFrom = bookingRequestDTO.getBooking().getDateFrom();
-        String dateTo = bookingRequestDTO.getBooking().getDateFrom();
+        String dateTo = bookingRequestDTO.getBooking().getDateTo();
         String destination = bookingRequestDTO.getBooking().getDestination();
         String hotelCode = bookingRequestDTO.getBooking().getHotelCode();
         HotelDTO hotel = this.validateDates(dateFrom, dateTo, destination, hotelCode);

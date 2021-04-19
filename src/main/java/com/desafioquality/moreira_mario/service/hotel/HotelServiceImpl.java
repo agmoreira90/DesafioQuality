@@ -20,7 +20,7 @@ public class HotelServiceImpl implements HotelService{
     /**
      * Executes the search filtering
      *
-     * @param params all the hotels
+     * @param params all the hotels filters
      * @return a filtered array list with hotels dto
      */
     @Override

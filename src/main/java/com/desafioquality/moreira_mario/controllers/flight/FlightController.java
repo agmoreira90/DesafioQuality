@@ -1,9 +1,9 @@
-package com.desafioquality.moreira_mario.controllers.hotel;
+package com.desafioquality.moreira_mario.controllers.flight;
 
-import com.desafioquality.moreira_mario.dtos.HotelDTO;
+import com.desafioquality.moreira_mario.dtos.FlightDTO;
 import com.desafioquality.moreira_mario.exceptions.ApiError;
 import com.desafioquality.moreira_mario.exceptions.ApiException;
-import com.desafioquality.moreira_mario.service.hotel.HotelService;
+import com.desafioquality.moreira_mario.service.flight.FlightService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -13,23 +13,23 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1")
-public class HotelController {
+@RequestMapping("/api/v3")
+public class FlightController {
 
-    private HotelService hotelService;
+    private FlightService flightService;
 
-    public HotelController(HotelService hotelService) {
-        this.hotelService = hotelService;
+    public FlightController(FlightService flightService) {
+        this.flightService = flightService;
     }
     /**
-     * GET endpoint /hotels
+     * GET endpoint /flights
      *
      * @param params all the filters
-     * @return a filtered list with hotels dto
+     * @return a filtered list with flight dto
      */
-    @GetMapping("/hotels")
-    public List<HotelDTO> getProducts(@RequestParam Map<String, String> params) throws ApiException {
-        return hotelService.getHotels(params);
+    @GetMapping("/flights")
+    public List<FlightDTO> getFlights(@RequestParam Map<String, String> params) throws ApiException {
+        return flightService.getFlights(params);
     }
     /**
      * Caths JSON Error
