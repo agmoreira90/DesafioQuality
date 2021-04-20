@@ -14,7 +14,7 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("/api/v4")
+@RequestMapping("/api/v1")
 public class ReservationContreller {
     private ReservationService reservationService;
 

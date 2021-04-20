@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v3")
+@RequestMapping("/api/v1")
 public class FlightController {
 
     private FlightService flightService;

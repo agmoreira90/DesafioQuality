@@ -78,7 +78,7 @@ class BookingControllerIntegralTest {
     public void booking() throws Exception {
         BookingRequestDTO bookingRequestDTO = UtilTest.createRequest("CREDIT",2);
         BookingResponseDTO miookingResponse = UtilTest.createResponse("CREDIT",2);
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v2/booking")
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/booking")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(bookingRequestDTO)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -97,7 +97,7 @@ class BookingControllerIntegralTest {
         String message = "Error: Formato de JSON invalido.";
         String status = HttpStatus.BAD_REQUEST.name();
         ApiError apiError = new ApiError(status, message, statusCode);
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v2/booking")
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/booking")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(""))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
