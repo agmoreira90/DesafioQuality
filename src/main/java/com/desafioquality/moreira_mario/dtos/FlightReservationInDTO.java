@@ -11,7 +11,6 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class FlightReservationInDTO {
 
@@ -41,21 +40,5 @@ public class FlightReservationInDTO {
     public String getDateTo() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         return sdf.format(this.dateTo);
-    }
-
-
-    @Override
-    public String toString() {
-        return "reservationFlight{" +
-                "dateFrom=" + dateFrom +
-                ", dateTo=" + dateTo +
-                ", origin='" + origin + '\'' +
-                ", destination='" + destination + '\'' +
-                ", flightNumber='" + flightNumber + '\'' +
-                ", seats=" + seats +
-                ", seatType='" + seatType + '\'' +
-                ", people=" + people +
-                ", paymentMethod=" + paymentMethod +
-                '}';
     }
 }

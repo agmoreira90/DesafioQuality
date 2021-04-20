@@ -80,4 +80,6 @@ class HotelControllerTestIntegral {
         assertEquals(hotels, listResponse);
     }
 
+
+
 }

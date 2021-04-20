@@ -1,5 +1,8 @@
 package com.desafioquality.moreira_mario.exceptions;
 
+import lombok.Data;
+
+@Data
 public class ApiError {
     private String error;
     private String message;

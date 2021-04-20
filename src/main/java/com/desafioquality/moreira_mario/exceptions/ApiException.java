@@ -1,7 +1,10 @@
 package com.desafioquality.moreira_mario.exceptions;
 
-import org.springframework.http.HttpStatus;
 
+import lombok.Data;
+
+import org.springframework.http.HttpStatus;
+@Data
 public class ApiException extends Exception {
     private final String code;
     private final String description;
