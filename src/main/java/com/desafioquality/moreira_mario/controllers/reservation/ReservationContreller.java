@@ -31,7 +31,42 @@ public class ReservationContreller {
     public FlightReservationResponseDTO reservate(@RequestBody FlightReservationRequestDTO reservationRequest) throws ApiException {
         return reservationService.reservate(reservationRequest);
     }
-
+    /**
+     * Payload
+     *{
+     *     "userName" : "seba_gonzalez@unmail.com",
+     *     "flightReservation" : {
+     *         "dateFrom" : "10/02/2021",
+     *         "dateTo" : "15/02/2021",
+     *         "origin" : "Buenos Aires",
+     *         "destination" : "Puerto Iguazú",
+     *         "flightNumber" : "BAPI-1235",
+     *         "seats":2,
+     *         "seatType" : "Economy",
+     *         "people" : [
+     *             {
+     *                 "dni" : "12345678",
+     *                 "name" : "Pepito",
+     *                 "lastName" : "Gomez",
+     *                 "birthDate" : "10/11/1982",
+     *                 "mail" : "pepitogomez@gmail.com"
+     *             },
+     *              {
+     *                 "dni" : "13345678",
+     *                 "name" : "Fulanito",
+     *                 "lastName" : "Gomez",
+     *                 "birthDate" : "10/11/1983",
+     *                 "mail" : "fulanitogomez@gmail.com"
+     *             }
+     *         ],
+     *         "paymentMethod" : {
+     *             "type" : "DEBIT",
+     *             "number" : "1234-1234-1234-1234",
+     *             "dues" : 1
+     *         }
+     *     }
+     * }
+     */
     /**
      * Caths JSON Error
      *
