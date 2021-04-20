@@ -22,9 +22,9 @@ public class ReservationServiceImpl implements ReservationService {
     public FlightReservationResponseDTO reservate(FlightReservationRequestDTO reservationRequest) throws ApiException {
         FlightReservationResponseDTO response = new FlightReservationResponseDTO();
         response.setUserName(reservationRequest.getUserName());
-        response = this.loadReservation(response, reservationRequest.getReservation());
-        String cardType = reservationRequest.getReservation().getPaymentMethod().getType();
-        Integer dues = reservationRequest.getReservation().getPaymentMethod().getDues();
+        response = this.loadReservation(response, reservationRequest.getFlightReservation());
+        String cardType = reservationRequest.getFlightReservation().getPaymentMethod().getType();
+        Integer dues = reservationRequest.getFlightReservation().getPaymentMethod().getDues();
         FlightDTO flight = this.validateFlight(reservationRequest);
         response = calculateTotal(response, cardType, dues, flight);
         StatusCodeDTO statusCode = new StatusCodeDTO();
@@ -69,11 +69,11 @@ public class ReservationServiceImpl implements ReservationService {
      * This method search the ReservationRequestDTO's flight in the database
      */
     private FlightDTO validateFlight(FlightReservationRequestDTO reservationRequest) throws ApiException {
-        String dateFrom = reservationRequest.getReservation().getDateFrom();
-        String dateTo = reservationRequest.getReservation().getDateTo();
-        String destination = reservationRequest.getReservation().getDestination();
-        String origin = reservationRequest.getReservation().getOrigin();
-        String flightNumbre = reservationRequest.getReservation().getFlightNumber().toString();
+        String dateFrom = reservationRequest.getFlightReservation().getDateFrom();
+        String dateTo = reservationRequest.getFlightReservation().getDateTo();
+        String destination = reservationRequest.getFlightReservation().getDestination();
+        String origin = reservationRequest.getFlightReservation().getOrigin();
+        String flightNumbre = reservationRequest.getFlightReservation().getFlightNumber().toString();
         FlightDTO flight = this.validateDates(dateFrom, dateTo, destination, origin, flightNumbre);
         return flight;
     }

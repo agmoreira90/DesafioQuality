@@ -94,7 +94,7 @@ public class UtilTest {
                 break;
         }
         reservationIn.setPaymentMethod(paymentMethod);
-        flightReservationRequest.setReservation(reservationIn);
+        flightReservationRequest.setFlightReservation(reservationIn);
         return flightReservationRequest;
     }
 

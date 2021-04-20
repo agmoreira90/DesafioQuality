@@ -2,10 +2,7 @@ package com.desafioquality.moreira_mario.service.reservation;
 
 import com.desafioquality.moreira_mario.dtos.*;
 import com.desafioquality.moreira_mario.exceptions.ApiException;
-import com.desafioquality.moreira_mario.service.booking.BookingService;
-import com.desafioquality.moreira_mario.service.booking.BookingServiceImpl;
 import com.desafioquality.moreira_mario.service.flight.FlightService;
-import com.desafioquality.moreira_mario.service.hotel.HotelService;
 import com.desafioquality.moreira_mario.utils.UtilTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -86,7 +83,7 @@ class ReservationServiceImplTest {
     @Test
     void validateFlightJSONException() throws ApiException, ParseException {
         FlightReservationRequestDTO flightReservationRequest = UtilTest.createReservationRequest("DEBIT",1);
-        flightReservationRequest.setReservation(null);
+        flightReservationRequest.setFlightReservation(null);
         String message = assertThrows(ApiException.class,()->this.reservationService.reservate(flightReservationRequest)).getMessage();
         assertEquals("Error: Formato de JSON invalido.", message);
     }
@@ -96,7 +93,7 @@ class ReservationServiceImplTest {
         List<FlightDTO> flights = new ArrayList<>();
         flights.add( new FlightDTO("BAPI-1235", "Buenos Aires", "Puerto Iguazú", "Economy", 6500D, sdf.parse("10/02/2021"), sdf.parse("15/02/2021")));
         FlightReservationRequestDTO flightReservationRequest = UtilTest.createReservationRequest("DEBIT",1);
-        flightReservationRequest.getReservation().setFlightNumber("00000");
+        flightReservationRequest.getFlightReservation().setFlightNumber("00000");
         Map<String, String> filter = new HashMap<>();
         filter.put("flightDeparture", "10/02/2021");
         filter.put("flightArrival", "15/02/2021");

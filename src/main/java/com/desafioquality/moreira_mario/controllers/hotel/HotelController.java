@@ -28,21 +28,7 @@ public class HotelController {
      * @return a filtered list with hotels dto
      */
     @GetMapping("/hotels")
-    public List<HotelDTO> getProducts(@RequestParam Map<String, String> params) throws ApiException {
+    public List<HotelDTO> getHotels(@RequestParam Map<String, String> params) throws ApiException {
         return hotelService.getHotels(params);
-    }
-    /**
-     * Caths JSON Error
-     *
-     * @param e is a HttpMessageNotReadableException
-     * @return a ResponseEntity<ApiError> with the error
-     */
-    @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ApiError> hotelSONFormat(HttpMessageNotReadableException e) {
-        Integer statusCode = HttpStatus.BAD_REQUEST.value();
-        String message = "Error: Formato de JSON invalido.";
-        String status = HttpStatus.BAD_REQUEST.name();
-        ApiError apiError = new ApiError(status, message, statusCode);
-        return ResponseEntity.status(apiError.getStatus()).body(apiError);
     }
 }

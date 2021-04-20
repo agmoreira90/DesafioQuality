@@ -2,9 +2,7 @@ package com.desafioquality.moreira_mario.controllers.hotel;
 
 import com.desafioquality.moreira_mario.dtos.HotelDTO;
 import com.desafioquality.moreira_mario.exceptions.ApiException;
-import com.desafioquality.moreira_mario.repositories.hotel.HotelRepository;
 import com.desafioquality.moreira_mario.service.hotel.HotelService;
-import com.desafioquality.moreira_mario.service.hotel.HotelServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,7 +43,7 @@ class HotelControllerTest {
         hotels.add(new HotelDTO("BH-0002", "Hotel Bristol 2", "Buenos Aires", "Doble", 7200D, sdf.parse("12/02/2021"), sdf.parse("17/04/2021"), false));
         Map<String, String> filters = new HashMap<>();
         Mockito.when(hotelService.getHotels(filters)).thenReturn(hotels);
-        List<HotelDTO> newHotels = this.hotelController.getProducts(filters);
+        List<HotelDTO> newHotels = this.hotelController.getHotels(filters);
         Mockito.verify(hotelService,atLeast(1)).getHotels(filters);
         Assertions.assertEquals(hotels, newHotels);
     }
@@ -58,7 +56,7 @@ class HotelControllerTest {
         Map<String, String> filters = new HashMap<>();
         filters.put("city", "Puerto Iguazú");
         Mockito.when(hotelService.getHotels(filters)).thenReturn(hotels);
-        List<HotelDTO> newHotels = this.hotelController.getProducts(filters);
+        List<HotelDTO> newHotels = this.hotelController.getHotels(filters);
         Mockito.verify(hotelService,atLeast(1)).getHotels(filters);
         Assertions.assertEquals(hotels, newHotels);
 
@@ -74,7 +72,7 @@ class HotelControllerTest {
         filters.put("availabilityFrom", "10/02/2021");
         filters.put("availabilityTo", "19/03/2021");
         Mockito.when(hotelService.getHotels(filters)).thenReturn(hotels);
-        List<HotelDTO> newHotels = this.hotelController.getProducts(filters);
+        List<HotelDTO> newHotels = this.hotelController.getHotels(filters);
         Mockito.verify(hotelService,atLeast(1)).getHotels(filters);
         Assertions.assertEquals(hotels, newHotels);
     }
@@ -89,7 +87,7 @@ class HotelControllerTest {
         filters.put("availabilityTo", "19/03/2021");
         filters.put("hotelCode", "CH-0002");
         Mockito.when(hotelService.getHotels(filters)).thenReturn(hotels);
-        List<HotelDTO> newHotels = this.hotelController.getProducts(filters);
+        List<HotelDTO> newHotels = this.hotelController.getHotels(filters);
         Mockito.verify(hotelService,atLeast(1)).getHotels(filters);
         Assertions.assertEquals(hotels, newHotels);
     }
@@ -104,7 +102,7 @@ class HotelControllerTest {
         filters.put("availabilityTo", "19/03/2021");
         filters.put("name", "Cataratas Hotel");
         Mockito.when(hotelService.getHotels(filters)).thenReturn(hotels);
-        List<HotelDTO> newHotels = this.hotelController.getProducts(filters);
+        List<HotelDTO> newHotels = this.hotelController.getHotels(filters);
         Mockito.verify(hotelService,atLeast(1)).getHotels(filters);
         Assertions.assertEquals(hotels, newHotels);
     }
@@ -119,7 +117,7 @@ class HotelControllerTest {
         filters.put("availabilityTo", "19/03/2021");
         filters.put("roomType", "Doble");
         Mockito.when(hotelService.getHotels(filters)).thenReturn(hotels);
-        List<HotelDTO> newHotels = this.hotelController.getProducts(filters);
+        List<HotelDTO> newHotels = this.hotelController.getHotels(filters);
         Mockito.verify(hotelService,atLeast(1)).getHotels(filters);
         Assertions.assertEquals(hotels, newHotels);
     }
@@ -134,7 +132,7 @@ class HotelControllerTest {
         filters.put("availabilityTo", "19/03/2021");
         filters.put("price", "6300");
         Mockito.when(hotelService.getHotels(filters)).thenReturn(hotels);
-        List<HotelDTO> newHotels = this.hotelController.getProducts(filters);
+        List<HotelDTO> newHotels = this.hotelController.getHotels(filters);
         Mockito.verify(hotelService,atLeast(1)).getHotels(filters);
         Assertions.assertEquals(hotels, newHotels);
     }

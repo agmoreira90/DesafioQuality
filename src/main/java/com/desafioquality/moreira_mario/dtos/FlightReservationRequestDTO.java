@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FlightReservationRequestDTO {
     private String userName;
-    private FlightReservationInDTO reservation;
+    private FlightReservationInDTO flightReservation;
 
     public void setUserName(String userName) throws ApiException {
         this.userName = UtilValidate.emailFormat(userName);

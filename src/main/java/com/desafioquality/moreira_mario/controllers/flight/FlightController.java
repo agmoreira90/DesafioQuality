@@ -31,18 +31,4 @@ public class FlightController {
     public List<FlightDTO> getFlights(@RequestParam Map<String, String> params) throws ApiException {
         return flightService.getFlights(params);
     }
-    /**
-     * Caths JSON Error
-     *
-     * @param e is a HttpMessageNotReadableException
-     * @return a ResponseEntity<ApiError> with the error
-     */
-    @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ApiError> flightJSONFormat(HttpMessageNotReadableException e) {
-        Integer statusCode = HttpStatus.BAD_REQUEST.value();
-        String message = "Error: Formato de JSON invalido.";
-        String status = HttpStatus.BAD_REQUEST.name();
-        ApiError apiError = new ApiError(status, message, statusCode);
-        return ResponseEntity.status(apiError.getStatus()).body(apiError);
-    }
 }
